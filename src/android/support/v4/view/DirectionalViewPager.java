@@ -2177,8 +2177,9 @@ public class DirectionalViewPager extends ViewGroup {
                 if (mIsBeingDragged) {
                     final VelocityTracker velocityTracker = mVelocityTracker;
                     velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-                    int initialVelocity = (int) VelocityTrackerCompat.getXVelocity(
-                            velocityTracker, mActivePointerId);
+                    int initialVelocity = mOrientation == HORIZONTAL ?
+                    		(int) VelocityTrackerCompat.getXVelocity(velocityTracker, mActivePointerId) :
+                    			(int) VelocityTrackerCompat.getYVelocity(velocityTracker, mActivePointerId);
                     mPopulatePending = true;
                     final int dimension = getClientDimension();
                     final int scrollCoord = getScrollCoord();
