@@ -98,7 +98,7 @@ public class DirectionalViewPager extends ViewGroup {
 	public static final int VERTICAL = LinearLayout.VERTICAL;
 	
     private static final String TAG = "ViewPager";
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private static final boolean USE_CACHE = false;
 
