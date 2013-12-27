@@ -21,6 +21,7 @@ configurations {
 }
 
 repositories {
+    mavenLocal()
     maven {
         credentials {
             username "${spritz_nexus_username}"
@@ -31,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:support-v13:19.0.1'
+    compile 'com.android.support:support-v13:19.0.0'
     //compile fileTree(dir: 'libs', include: '*.jar')
 }
 
