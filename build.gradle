@@ -5,18 +5,28 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:0.7.+'
     }
-
-    project.group = "com.spritzllc"
-    project.version = "1.0.0"
 }
 
 apply plugin: 'android-library'
+apply plugin: 'maven'
+
+project.group = "com.spritzllc"
+project.version = "1.0-SNAPSHOT"
+
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
 
 repositories {
-    mavenCentral()
-    ivy {
-        name "local"
-        url "${System.properties['user.home']}/.local-ivy-repository"
+    maven {
+        credentials {
+            username "${spritz_nexus_username}"
+            password "${spritz_nexus_password}"
+        }
+        url "http://gp.spritzllc.com:8080/nexus/content/groups/public"
     }
 }
 
@@ -55,12 +65,13 @@ android {
 }
 
 uploadArchives {
-	repositories {
-        ivy {
-	    	name "local"
-	    	url "${System.properties['user.home']}/.local-ivy-repository"
+    repositories.mavenDeployer {
+        configuration = configurations.archives
+        repository(url: "http://gp.spritzllc.com:8080/nexus/content/repositories/snapshots") {
+            authentication(userName: "${spritz_nexus_username}", password: "${spritz_nexus_password}")
         }
     }
+
 }
 
 task wrapper(type: Wrapper) {
